@@ -1,1 +1,1 @@
-[dsinggg.github.io/dsing](https://dsinggg.github.io/BlueArchive-friberg/)
+[dsinggg.github.io/BlueArchive-friberg](https://dsinggg.github.io/BlueArchive-friberg/)
