@@ -50,9 +50,9 @@
     </style>
 </head>
 <body>
-    <h1>猜角色游戏</h1>
-    <p>请输入角色姓名，开始猜测吧！</p>
-    <input type="text" id="userInput" placeholder="输入角色姓名..." oninput="showHints()">
+    <h1>蔚蓝档案 · 弗一把</h1>
+    <p>请输入学生姓名，开始猜测吧！</p>
+    <input type="text" id="userInput" placeholder="输入学生姓名..." oninput="showHints()">
     <button onclick="submitGuess()">提交猜测</button>
 
     <div id="hints" class="hint"></div>
@@ -95,7 +95,7 @@
             const input = document.getElementById("userInput").value.trim();
             
             // 如果输入框为空，清空提示
-            if (input === "") {
+            if (input === "" || input === "(" || input === ")") {
                 document.getElementById("hints").innerText = "";
                 return;
             }
