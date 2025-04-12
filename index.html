@@ -189,7 +189,7 @@
 
         // 重新开始游戏
         function startOver() {
-            correctAnswer = characters[0]; // 重置正确答案
+            let correctAnswer = characters[Math.floor(Math.random() * characters.length)];
             attempts = 0;
             document.getElementById("userInput").disabled = false;
             document.querySelector("button[onclick='submitGuess()']").disabled = false;
