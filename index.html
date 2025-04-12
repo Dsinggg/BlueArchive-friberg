@@ -40,7 +40,20 @@
             color: gray;
             font-size: 12px;
         }
-        /* Define color classes */
+		.hint-button {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 2px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .hint-button:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
         .correct { background-color: lightgreen; }
         .incorrect { background-color: lightcoral; }
         .close { background-color: lightyellow; }
@@ -292,17 +305,29 @@
         
         function showHints() {
             const input = document.getElementById("userInput").value.trim();
+            const hintsContainer = document.getElementById("hints");
             
             if (input === "" || input === "（" || input === "）") {
-                document.getElementById("hints").innerText = "";
+                hintsContainer.innerHTML = "";
                 return;
             }
-        
-            const hints = characters.filter(character => character.name.toLowerCase().includes(input.toLowerCase()))
-                .map(character => character.name)
-                .join(", ");
             
-            document.getElementById("hints").innerText = hints ? "可选角色：" + hints : "";
+            const matchedCharacters = characters.filter(character => 
+                character.name.toLowerCase().includes(input.toLowerCase())
+            );
+            
+            hintsContainer.innerHTML = "";
+            
+            matchedCharacters.forEach(character => {
+                const button = document.createElement("div");
+                button.className = "hint-button";
+                button.textContent = character.name;
+                button.onclick = () => {
+                    document.getElementById("userInput").value = character.name;
+                    hintsContainer.innerHTML = "";
+                };
+                hintsContainer.appendChild(button);
+            });
         }
         
         function submitGuess() {
