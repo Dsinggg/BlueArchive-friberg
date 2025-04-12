@@ -48,7 +48,7 @@
 </head>
 <body>
     <h1>蔚蓝档案 · 弗一把</h1>
-    <p>请输入学生姓名，开始猜测吧！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者：Dsing</p>
+    <p>请输入学生姓名，开始猜测吧！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者：<a href="https://space.bilibili.com/14443582" target="_blank">Dsing</a></p>
     <input type="text" id="userInput" placeholder="输入学生姓名..." oninput="showHints()">
     <button onclick="submitGuess()">提交猜测</button>
 
@@ -72,15 +72,219 @@
 
     <script>
         const characters = [
-            {
-                name: "星野（泳装）", academy: "阿拜多斯", club: "对策委员会", age: 17, position: "前排", attack: "爆发"
-            },
-            {
-                name: "和香", academy: "红冬", club: "227号特别班", age: 16, position: "后排", attack: "爆发"
-            },
-            {
-                name: "星野", academy: "阿拜多斯", club: "对策委员会", age: 17, position: "前排", attack: "贯穿"
-            },
+        {name: "爱露", academy: "歌赫娜", club: "便利屋68", age: 16, position: "突击", attack: "爆发"},
+        {name: "艾米", academy: "千禧年", club: "超自然现象调查部", age: 15, position: "突击", attack: "爆发"},
+        {name: "晴奈", academy: "歌赫娜", club: "美食研究会", age: 17, position: "突击", attack: "神秘"},
+        {name: "日富美", academy: "崔尼蒂", club: "补习部", age: 16, position: "突击", attack: "贯穿"},
+        {name: "日奈", academy: "歌赫娜", club: "风纪委员会", age: 17, position: "突击", attack: "爆发"},
+        {name: "星野", academy: "阿拜多斯", club: "对策委员会", age: 17, position: "突击", attack: "贯穿"},
+        {name: "伊织", academy: "歌赫娜", club: "风纪委员会", age: 16, position: "突击", attack: "贯穿"},
+        {name: "真纪", academy: "千禧年", club: "真理社", age: 15, position: "突击", attack: "贯穿"},
+        {name: "妮露", academy: "千禧年", club: "C&C", age: 17, position: "突击", attack: "贯穿"},
+        {name: "泉", academy: "歌赫娜", club: "美食研究会", age: 16, position: "突击", attack: "爆发"},
+        {name: "白子", academy: "阿拜多斯", club: "对策委员会", age: 16, position: "突击", attack: "爆发"},
+        {name: "瞬", academy: "山海经", club: "梅花园", age: ?1, position: "突击", attack: "爆发"},
+        {name: "堇", academy: "千禧年", club: "健身部", age: 16, position: "突击", attack: "贯穿"},
+        {name: "鹤城", academy: "崔尼蒂", club: "正义实现部", age: 17, position: "突击", attack: "贯穿"},
+        {name: "茜", academy: "千禧年", club: "C&C", age: 16, position: "突击", attack: "贯穿"},
+        {name: "千世", academy: "百鬼夜行", club: "阴阳部", age: 16, position: "突击", attack: "神秘"},
+        {name: "明里", academy: "歌赫娜", club: "美食研究会", age: 17, position: "突击", attack: "爆发"},
+        {name: "莲见", academy: "崔尼蒂", club: "正义实现部", age: 17, position: "突击", attack: "贯穿"},
+        {name: "野宫", academy: "阿拜多斯", club: "对策委员会", age: 16, position: "突击", attack: "贯穿"},
+        {name: "佳代子", academy: "歌赫娜", club: "便利屋68", age: 18, position: "突击", attack: "爆发"},
+        {name: "睦月", academy: "歌赫娜", club: "便利屋68", age: 16, position: "突击", attack: "爆发"},
+        {name: "纯子", academy: "歌赫娜", club: "美食研究会", age: 15, position: "突击", attack: "贯穿"},
+        {name: "芹香", academy: "阿拜多斯", club: "对策委员会", age: 15, position: "突击", attack: "爆发"},
+        {name: "椿", academy: "百鬼夜行", club: "修行部", age: 16, position: "突击", attack: "贯穿"},
+        {name: "优香", academy: "千禧年", club: "研讨会", age: 16, position: "突击", attack: "爆发"},
+        {name: "春香", academy: "歌赫娜", club: "便利屋68", age: 15, position: "突击", attack: "爆发"},
+        {name: "明日奈", academy: "千禧年", club: "C&C", age: 17, position: "突击", attack: "神秘"},
+        {name: "琴里", academy: "千禧年", club: "工程部", age: 15, position: "突击", attack: "贯穿"},
+        {name: "铃美", academy: "崔尼蒂", club: "崔尼蒂自警团", age: 16, position: "突击", attack: "爆发"},
+        {name: "菲娜", academy: "百鬼夜行", club: "庆典运营管理部", age: 17, position: "突击", attack: "贯穿"},
+        {name: "响", academy: "千禧年", club: "工程部", age: 15, position: "支援", attack: "爆发"},
+        {name: "花凛", academy: "千禧年", club: "C&C", age: 16, position: "支援", attack: "贯穿"},
+        {name: "纱绫", academy: "山海经", club: "炼丹研究会", age: 16, position: "支援", attack: "爆发"},
+        {name: "爱理", academy: "崔尼蒂", club: "甜点部", age: 15, position: "支援", attack: "爆发"},
+        {name: "风香", academy: "歌赫娜", club: "供餐部", age: 16, position: "支援", attack: "爆发"},
+        {name: "花江", academy: "崔尼蒂", club: "救护骑士团", age: 15, position: "支援", attack: "爆发"},
+        {name: "晴", academy: "千禧年", club: "真理社", age: 16, position: "支援", attack: "爆发"},
+        {name: "歌原", academy: "千禧年", club: "工程部", age: 17, position: "支援", attack: "贯穿"},
+        {name: "绫音", academy: "阿拜多斯", club: "对策委员会", age: 15, position: "支援", attack: "贯穿"},
+        {name: "千夏", academy: "歌赫娜", club: "风纪委员会", age: 15, position: "支援", attack: "贯穿"},
+        {name: "小玉", academy: "千禧年", club: "真理社", age: 17, position: "支援", attack: "爆发"},
+        {name: "朱莉", academy: "歌赫娜", club: "供餐部", age: 15, position: "支援", attack: "爆发"},
+        {name: "芹娜", academy: "崔尼蒂", club: "救护骑士团", age: 16, position: "支援", attack: "神秘"},
+        {name: "志美子", academy: "崔尼蒂", club: "图书管理部", age: 15, position: "支援", attack: "爆发"},
+        {name: "好美", academy: "崔尼蒂", club: "甜点部", age: 15, position: "支援", attack: "贯穿"},
+        {name: "真白", academy: "崔尼蒂", club: "正义实现部", age: 15, position: "支援", attack: "爆发"},
+        {name: "泉奈", academy: "百鬼夜行", club: "忍术研究部", age: 15, position: "突击", attack: "神秘"},
+        {name: "静子", academy: "百鬼夜行", club: "庆典运营管理部", age: 16, position: "支援", attack: "神秘"},
+        {name: "爱丽丝", academy: "千禧年", club: "游戏开发部", age: ?2, position: "突击", attack: "神秘"},
+        {name: "绿", academy: "千禧年", club: "游戏开发部", age: 15, position: "突击", attack: "贯穿"},
+        {name: "桃", academy: "千禧年", club: "游戏开发部", age: 15, position: "突击", attack: "贯穿"},
+        {name: "切里诺", academy: "红冬", club: "红冬事务局", age: ?3, position: "突击", attack: "贯穿"},
+        {name: "和香", academy: "红冬", club: "227号特别班", age: 16, position: "支援", attack: "爆发"},
+        {name: "柚子", academy: "千禧年", club: "游戏开发部", age: 16, position: "突击", attack: "贯穿"},
+        {name: "梓", academy: "崔尼蒂", club: "补习部", age: 16, position: "突击", attack: "爆发"},
+        {name: "花子", academy: "崔尼蒂", club: "补习部", age: 16, position: "支援", attack: "贯穿"},
+        {name: "小春", academy: "崔尼蒂", club: "补习部", age: 15, position: "突击", attack: "爆发"},
+        {name: "梓（泳装）", academy: "崔尼蒂", club: "补习部", age: 16, position: "突击", attack: "神秘"},
+        {name: "真白（泳装）", academy: "崔尼蒂", club: "正义实现部", age: 15, position: "支援", attack: "神秘"},
+        {name: "鹤城（泳装）", academy: "崔尼蒂", club: "正义实现部", age: 17, position: "突击", attack: "神秘"},
+        {name: "日富美（泳装）", academy: "崔尼蒂", club: "补习部", age: 16, position: "支援", attack: "贯穿"},
+        {name: "日奈（泳装）", academy: "歌赫娜", club: "风纪委员会", age: 17, position: "突击", attack: "爆发"},
+        {name: "伊织（泳装）", academy: "歌赫娜", club: "风纪委员会", age: 16, position: "突击", attack: "爆发"},
+        {name: "泉（泳装）", academy: "歌赫娜", club: "美食研究会", age: 16, position: "突击", attack: "爆发"},
+        {name: "白子（骑行）", academy: "阿拜多斯", club: "对策委员会", age: 16, position: "突击", attack: "神秘"},
+        {name: "瞬（小）", academy: "山海经", club: "梅花园", age: ?4, position: "突击", attack: "爆发"},
+        {name: "桐乃", academy: "瓦尔基丽", club: "生活安全局", age: 15, position: "突击", attack: "爆发"},
+        {name: "纱绫（便服）", academy: "山海经", club: "炼丹研究会", age: 16, position: "支援", attack: "贯穿"},
+        {name: "妮露（邦妮）", academy: "千禧年", club: "C&C", age: 17, position: "突击", attack: "爆发"},
+        {name: "花凛（邦妮）", academy: "千禧年", club: "C&C", age: 16, position: "突击", attack: "神秘"},
+        {name: "明日奈（邦妮）", academy: "千禧年", club: "C&C", age: 17, position: "突击", attack: "神秘"},
+        {name: "夏", academy: "崔尼蒂", club: "甜点部", age: 15, position: "突击", attack: "神秘"},
+        {name: "玛丽", academy: "崔尼蒂", club: "姐妹会", age: 15, position: "支援", attack: "神秘"},
+        {name: "亚子", academy: "歌赫娜", club: "风纪委员会", age: 17, position: "支援", attack: "神秘"},
+        {name: "切里诺（温泉）", academy: "红冬", club: "红冬事务局", age: ?3, position: "支援", attack: "爆发"},
+        {name: "千夏（温泉）", academy: "歌赫娜", club: "风纪委员会", age: 15, position: "突击", attack: "神秘"},
+        {name: "巴", academy: "红冬", club: "红冬事务局", age: 17, position: "突击", attack: "贯穿"},
+        {name: "和香（温泉）", academy: "红冬", club: "227号特别班", age: 16, position: "支援", attack: "爆发"},
+        {name: "爱露（新年）", academy: "歌赫娜", club: "便利屋68", age: 16, position: "突击", attack: "贯穿"},
+        {name: "睦月（新年）", academy: "歌赫娜", club: "便利屋68", age: 16, position: "突击", attack: "神秘"},
+        {name: "芹香（新年）", academy: "阿拜多斯", club: "对策委员会", age: 15, position: "支援", attack: "贯穿"},
+        {name: "若藻", academy: "百鬼夜行", club: "无", age: 18, position: "突击", attack: "神秘"},
+        {name: "吹雪", academy: "瓦尔基丽", club: "生活安全局", age: 15, position: "突击", attack: "贯穿"},
+        {name: "濑名", academy: "歌赫娜", club: "急救医学部", age: 17, position: "支援", attack: "神秘"},
+        {name: "千寻", academy: "千禧年", club: "真理社", age: 17, position: "支援", attack: "贯穿"},
+        {name: "三森", academy: "百鬼夜行", club: "修行部", age: 16, position: "突击", attack: "神秘"},
+        {name: "忧", academy: "崔尼蒂", club: "图书管理部", age: 17, position: "突击", attack: "爆发"},
+        {name: "日向", academy: "崔尼蒂", club: "姐妹会", age: 17, position: "突击", attack: "神秘"},
+        {name: "真里奈", academy: "红冬", club: "红冬事务局", age: 16, position: "突击", attack: "贯穿"},
+        {name: "宫子", academy: "SRT", club: "RABBIT小队", age: 15, position: "突击", attack: "贯穿"},
+        {name: "咲", academy: "SRT", club: "RABBIT小队", age: 15, position: "支援", attack: "贯穿"},
+        {name: "美游", academy: "SRT", club: "RABBIT小队", age: 15, position: "突击", attack: "贯穿"},
+        {name: "枫", academy: "百鬼夜行", club: "修行部", age: 15, position: "支援", attack: "爆发"},
+        {name: "伊吕波", academy: "歌赫娜", club: "万魔殿", age: 16, position: "支援", attack: "神秘"},
+        {name: "满", academy: "百鬼夜行", club: "忍术研究部", age: 17, position: "突击", attack: "神秘"},
+        {name: "月咏", academy: "百鬼夜行", club: "忍术研究部", age: 15, position: "突击", attack: "神秘"},
+        {name: "美咲", academy: "阿里乌斯", club: "阿里乌斯战术小队", age: 16, position: "突击", attack: "爆发"},
+        {name: "日和", academy: "阿里乌斯", club: "阿里乌斯战术小队", age: 16, position: "支援", attack: "爆发"},
+        {name: "亚津子", academy: "阿里乌斯", club: "阿里乌斯战术小队", age: 15, position: "突击", attack: "爆发"},
+        {name: "若藻（泳装）", academy: "百鬼夜行", club: "无", age: 18, position: "突击", attack: "贯穿"},
+        {name: "野宫（泳装）", academy: "阿拜多斯", club: "对策委员会", age: 16, position: "突击", attack: "爆发"},
+        {name: "绫音（泳装）", academy: "阿拜多斯", club: "对策委员会", age: 15, position: "支援", attack: "贯穿"},
+        {name: "星野（泳装）", academy: "阿拜多斯", club: "对策委员会", age: 17, position: "突击", attack: "爆发"},
+        {name: "静子（泳装）", academy: "百鬼夜行", club: "庆典运营管理部", age: 16, position: "支援", attack: "神秘"},
+        {name: "泉奈（泳装）", academy: "百鬼夜行", club: "忍术研究部", age: 15, position: "突击", attack: "神秘"},
+        {name: "千世（泳装）", academy: "百鬼夜行", club: "阴阳部", age: 16, position: "突击", attack: "神秘"},
+        {name: "纱织", academy: "阿里乌斯", club: "阿里乌斯战术小队", age: 17, position: "突击", attack: "爆发"},
+        {name: "萌绘", academy: "SRT", club: "RABBIT小队", age: 15, position: "支援", attack: "贯穿"},
+        {name: "和纱", academy: "崔尼蒂", club: "甜点部", age: 15, position: "突击", attack: "贯穿"},
+        {name: "心奈", academy: "山海经", club: "梅花园", age: 11, position: "突击", attack: "贯穿"},
+        {name: "歌原（应援团）", academy: "千禧年", club: "工程部", age: 17, position: "突击", attack: "神秘"},
+        {name: "诺亚", academy: "千禧年", club: "研讨会", age: 16, position: "突击", attack: "神秘"},
+        {name: "响（应援团）", academy: "千禧年", club: "工程部", age: 15, position: "突击", attack: "爆发"},
+        {name: "茜（邦妮）", academy: "千禧年", club: "C&C", age: 16, position: "支援", attack: "神秘"},
+        {name: "优香（体操服）", academy: "千禧年", club: "研讨会", age: 16, position: "突击", attack: "神秘"},
+        {name: "玛丽（体操服）", academy: "崔尼蒂", club: "姐妹会", age: 15, position: "突击", attack: "神秘"},
+        {name: "莲见（体操服）", academy: "崔尼蒂", club: "正义实现部", age: 17, position: "突击", attack: "神秘"},
+        {name: "日鞠", academy: "千禧年", club: "超自然现象调查部", age: 17, position: "支援", attack: "贯穿"},
+        {name: "时雨", academy: "红冬", club: "227号特别班", age: 16, position: "突击", attack: "爆发"},
+        {name: "芹娜（圣诞）", academy: "崔尼蒂", club: "救护骑士团", age: 16, position: "突击", attack: "贯穿"},
+        {name: "花江（圣诞）", academy: "崔尼蒂", club: "救护骑士团", age: 15, position: "支援", attack: "神秘"},
+        {name: "晴奈（新年）", academy: "歌赫娜", club: "美食研究会", age: 17, position: "突击", attack: "爆发"},
+        {name: "风香（新年）", academy: "歌赫娜", club: "供餐部", age: 16, position: "支援", attack: "贯穿"},
+        {name: "纯子（新年）", academy: "歌赫娜", club: "美食研究会", age: 15, position: "突击", attack: "神秘"},
+        {name: "美祢", academy: "崔尼蒂", club: "救护骑士团", age: 17, position: "突击", attack: "爆发"},
+        {name: "未花", academy: "崔尼蒂", club: "茶话会", age: 17, position: "突击", attack: "贯穿"},
+        {name: "惠", academy: "歌赫娜", club: "温泉开发部", age: 17, position: "突击", attack: "爆发"},
+        {name: "康娜", academy: "瓦尔基丽", club: "公共安全局", age: 17, position: "支援", attack: "贯穿"},
+        {name: "樱子", academy: "崔尼蒂", club: "姐妹会", age: 17, position: "突击", attack: "神秘"},
+        {name: "时", academy: "千禧年", club: "C&C", age: 16, position: "突击", attack: "爆发"},
+        {name: "渚", academy: "崔尼蒂", club: "茶话会", age: 17, position: "支援", attack: "爆发"},
+        {name: "小雪", academy: "千禧年", club: "研讨会", age: 15, position: "突击", attack: "神秘"},
+        {name: "佳代子（新年）", academy: "歌赫娜", club: "便利屋68", age: 18, position: "突击", attack: "神秘"},
+        {name: "春香（新年）", academy: "歌赫娜", club: "便利屋68", age: 15, position: "支援", attack: "爆发"},
+        {name: "果穗", academy: "百鬼夜行", club: "阴阳部", age: 17, position: "突击", attack: "神秘"},
+        {name: "爱丽丝（女仆）", academy: "千禧年", club: "游戏开发部", age: ?2, position: "突击", attack: "神秘"},
+        {name: "时（邦妮）", academy: "千禧年", club: "C&C", age: 16, position: "突击", attack: "爆发"},
+        {name: "柚子（女仆）", academy: "千禧年", club: "游戏开发部", age: 16, position: "支援", attack: "爆发"},
+        {name: "玲纱", academy: "崔尼蒂", club: "崔尼蒂自警团", age: 15, position: "突击", attack: "贯穿"},
+        {name: "瑠海", academy: "山海经", club: "玄武商会", age: 17, position: "突击", attack: "爆发"},
+        {name: "南", academy: "山海经", club: "玄龙门", age: 16, position: "突击", attack: "爆发"},
+        {name: "实梨", academy: "红冬", club: "工务部", age: 17, position: "支援", attack: "爆发"},
+        {name: "宫子（泳装）", academy: "SRT", club: "RABBIT小队", age: 15, position: "突击", attack: "爆发"},
+        {name: "咲（泳装）", academy: "SRT", club: "RABBIT小队", age: 15, position: "突击", attack: "爆发"},
+        {name: "美游（泳装）", academy: "SRT", club: "RABBIT小队", age: 15, position: "支援", attack: "爆发"},
+        {name: "白子（泳装）", academy: "阿拜多斯", club: "对策委员会", age: 16, position: "支援", attack: "神秘"},
+        {name: "忧（泳装）", academy: "崔尼蒂", club: "图书管理部", age: 17, position: "突击", attack: "贯穿"},
+        {name: "日向（泳装）", academy: "崔尼蒂", club: "姐妹会", age: 17, position: "支援", attack: "爆发"},
+        {name: "小春（泳装）", academy: "崔尼蒂", club: "补习部", age: 15, position: "突击", attack: "神秘"},
+        {name: "花子（泳装）", academy: "崔尼蒂", club: "补习部", age: 16, position: "突击", attack: "振动"},
+        {name: "三森（泳装）", academy: "百鬼夜行", club: "修行部", age: 16, position: "支援", attack: "神秘"},
+        {name: "芽留", academy: "红冬", club: "知识解放战线", age: 16, position: "突击", attack: "贯穿"},
+        {name: "红叶", academy: "红冬", club: "知识解放战线", age: 15, position: "突击", attack: "振动"},
+        {name: "琴里（应援团）", academy: "千禧年", club: "工程部", age: 15, position: "突击", attack: "爆发"},
+        {name: "晴奈（运动服）", academy: "歌赫娜", club: "美食研究会", age: 17, position: "支援", attack: "振动"},
+        {name: "一花", academy: "崔尼蒂", club: "正义实现部", age: 16, position: "突击", attack: "振动"},
+        {name: "霞", academy: "歌赫娜", club: "温泉开发部", age: 16, position: "突击", attack: "振动"},
+        {name: "时雨（温泉）", academy: "红冬", club: "227号特别班", age: 16, position: "支援", attack: "贯穿"},
+        {name: "紫草", academy: "百鬼夜行", club: "百花缭乱纠纷调解委员会", age: 15, position: "突击", attack: "振动"},
+        {name: "莲华", academy: "百鬼夜行", club: "百花缭乱纠纷调解委员会", age: 16, position: "突击", attack: "振动"},
+        {name: "桔梗", academy: "百鬼夜行", club: "百花缭乱纠纷调解委员会", age: 16, position: "突击", attack: "振动"},
+        {name: "艾米（泳装）", academy: "千禧年", club: "超自然现象调查部", age: 15, position: "支援", attack: "神秘"},
+        {name: "小玉（露营）", academy: "千禧年", club: "真理社", age: 17, position: "突击", attack: "贯穿"},
+        {name: "晴（露营）", academy: "千禧年", club: "真理社", age: 16, position: "突击", attack: "爆发"},
+        {name: "亚子（礼服）", academy: "歌赫娜", club: "风纪委员会", age: 17, position: "突击", attack: "爆发"},
+        {name: "伊吹", academy: "歌赫娜", club: "万魔殿", age: 11, position: "突击", attack: "神秘"},
+        {name: "真琴", academy: "歌赫娜", club: "万魔殿", age: 18, position: "支援", attack: "贯穿"},
+        {name: "日奈（礼服）", academy: "歌赫娜", club: "风纪委员会", age: 17, position: "突击", attack: "爆发"},
+        {name: "佳代子（礼服）", academy: "歌赫娜", club: "便利屋68", age: 18, position: "突击", attack: "贯穿"},
+        {name: "爱露（礼服）", academy: "歌赫娜", club: "便利屋68", age: 16, position: "突击", attack: "贯穿"},
+        {name: "明里（正月）", academy: "歌赫娜", club: "美食研究会", age: 17, position: "支援", attack: "神秘"},
+        {name: "海香", academy: "百鬼夜行", club: "庆典运营管理部", age: 15, position: "突击", attack: "神秘"},
+        {name: "椿（导游）", academy: "百鬼夜行", club: "修行部", age: 16, position: "支援", attack: "贯穿"},
+        {name: "和纱（乐队）", academy: "崔尼蒂", club: "甜点部", age: 15, position: "突击", attack: "爆发"},
+        {name: "好美（乐队）", academy: "崔尼蒂", club: "甜点部", age: 15, position: "突击", attack: "爆发"},
+        {name: "爱莉（乐队）", academy: "崔尼蒂", club: "甜点部", age: 15, position: "突击", attack: "爆发"},
+        {name: "绮罗罗", academy: "歌赫娜", club: "闪耀部", age: 16, position: "突击", attack: "振动"},
+        {name: "桃井（女仆）", academy: "千禧年", club: "游戏开发部", age: 15, position: "突击", attack: "振动"},
+        {name: "绿（女仆）", academy: "千禧年", club: "游戏开发部", age: 15, position: "突击", attack: "振动"},
+        {name: "芹香（泳装）", academy: "阿拜多斯", club: "对策委员会", age: 15, position: "支援", attack: "神秘"},
+        {name: "康娜（泳装）", academy: "瓦尔基丽", club: "公共安全局", age: 17, position: "突击", attack: "爆发"},
+        {name: "吹雪（泳装）", academy: "瓦尔基丽", club: "生活安全局", age: 15, position: "支援", attack: "爆发"},
+        {name: "桐乃（泳装）", academy: "瓦尔基丽", club: "生活安全局", age: 15, position: "支援", attack: "神秘"},
+        {name: "萌绘（泳装）", academy: "SRT", club: "RABBIT小队", age: 15, position: "突击", attack: "振动"},
+        {name: "星野（临战）", academy: "阿拜多斯", club: "对策委员会", age: 17, position: "突击", attack: "神秘"},
+        {name: "星野（临战）", academy: "阿拜多斯", club: "对策委员会", age: 17, position: "突击", attack: "神秘"},
+        {name: "白子＊恐怖", academy: "阿拜多斯", club: "阿拜多斯学生会", age: 17, position: "突击", attack: "神秘"},
+        {name: "亚津子（泳装）", academy: "阿里乌斯", club: "阿里乌斯战术小队", age: 15, position: "支援", attack: "振动"},
+        {name: "纱织（泳装）", academy: "阿里乌斯", club: "阿里乌斯战术小队", age: 17, position: "突击", attack: "神秘"},
+        {name: "日和（泳装）", academy: "阿里乌斯", club: "阿里乌斯战术小队", age: 16, position: "突击", attack: "贯穿"},
+        {name: "真里奈（旗袍）", academy: "红冬", club: "红冬事务局", age: 16, position: "突击", attack: "贯穿"},
+        {name: "巴（旗袍）", academy: "红冬", club: "红冬事务局", age: 17, position: "支援", attack: "神秘"},
+        {name: "丽情", academy: "山海经", club: "玄武商会", age: 17, position: "突击", attack: "神秘"},
+        {name: "妃咲", academy: "山海经", club: "玄龙门", age: 17, position: "支援", attack: "振动"},
+        {name: "玛丽（偶像）", academy: "崔尼蒂", club: "姐妹会", age: 15, position: "突击", attack: "爆发"},
+        {name: "樱子（偶像）", academy: "崔尼蒂", club: "姐妹会", age: 17, position: "突击", attack: "爆发"},
+        {name: "美祢（偶像）", academy: "崔尼蒂", club: "救护骑士团", age: 17, position: "突击", attack: "爆发"},
+        {name: "千秋", academy: "歌赫娜", club: "万魔殿", age: 16, position: "突击", attack: "振动"},
+        {name: "皋月", academy: "歌赫娜", club: "万魔殿", age: 17, position: "支援", attack: "爆发"},
+        {name: "优香（睡衣）", academy: "千禧年", club: "研讨会", age: 16, position: "突击", attack: "爆发"},
+        {name: "诺亚（睡衣）", academy: "千禧年", club: "研讨会", age: 16, position: "突击", attack: "贯穿"},
+        {name: "圣娅", academy: "崔尼蒂", club: "茶话会", age: 17, position: "突击", attack: "贯穿"},
+        {name: "明日奈（制服）", academy: "千禧年", club: "C&C", age: 17, position: "突击", attack: "爆发"},
+        {name: "花凛（制服）", academy: "千禧年", club: "C&C", age: 16, position: "支援", attack: "爆发"},
+        {name: "妮露（制服）", academy: "千禧年", club: "C&C", age: 17, position: "突击", attack: "贯穿"},
+        {name: "莉音", academy: "千禧年", club: "研讨会", age: 17, position: "支援", attack: "神秘"},
+        {name: "真纪（露营）", academy: "千禧年", club: "真理社", age: 15, position: "支援", attack: "爆发"},
+        {name: "濑名（便服）", academy: "歌赫娜", club: "急救医学部", age: 17, position: "突击", attack: "振动"},
+        {name: "朱莉（打工）", academy: "歌赫娜", club: "供餐部", age: 15, position: "突击", attack: "神秘"},
+        {name: "泉（正月）", academy: "歌赫娜", club: "美食研究会", age: 16, position: "支援", attack: "爆发"},
+        {name: "丽", academy: "千禧年", club: "健身部", age: 15, position: "突击", attack: "振动"},
+        {name: "堇（打工）", academy: "千禧年", club: "健身部", age: 16, position: "支援", attack: "贯穿"},
+        {name: "纱织（礼服）", academy: "阿里乌斯", club: "阿里乌斯战术小队", age: 17, position: "突击", attack: "振动"},
         ];
 
         let correctAnswer = characters[Math.floor(Math.random() * characters.length)];
@@ -89,7 +293,7 @@
         function showHints() {
             const input = document.getElementById("userInput").value.trim();
             
-            if (input === "" || input === "(" || input === ")") {
+            if (input === "" || input === "（" || input === "）") {
                 document.getElementById("hints").innerText = "";
                 return;
             }
@@ -98,7 +302,7 @@
                 .map(character => character.name)
                 .join(", ");
             
-            document.getElementById("hints").innerText = hints ? "可选角色： " + hints : "";
+            document.getElementById("hints").innerText = hints ? "可选角色：" + hints : "";
         }
         
         function submitGuess() {
@@ -126,8 +330,18 @@
                         className = "close";
                     }
                 } else if (property === "age") {
-                    if (guessValue === correctValue) {
+                    if (guessValue === "?1" || guessValue === "?2" || guessValue === "?3" || guessValue === "?4") {
+                        if (guessValue === correctValue) {
+                            className = "correct";
+                            displayValue = "?"
+                        } else {
+                            className = "incorrect";
+                            displayValue = "?"
+                        }
+                    } else if (guessValue === correctValue) {
                         className = "correct";
+                    } else if (correctValue === "?1" || correctValue === "?2" || correctValue === "?3" || correctValue === "?4") {
+                        className = "incorrect";
                     } else if (guessValue < correctValue) {
                         className = "incorrect";
                         displayValue = `${guessValue} ↑`;
