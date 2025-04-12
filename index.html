@@ -126,6 +126,7 @@
                 let correctValue = correctAnswer[property];
                 let guessValue = guessCharacter[property];
                 let className = "incorrect";
+                let displayValue = guessValue; // 默认显示原值
 
                 if (property === "name") {
                     if (guessValue === correctValue) {
@@ -145,8 +146,6 @@
                     }
                 } else if (guessValue === correctValue) {
                     className = "correct";
-                } else {
-                    className = "incorrect";
                 }
 
                 let coloredText = "";
@@ -154,7 +153,7 @@
                     coloredText = getAttackColor(guessCharacter.attack);
                 }
 
-                resultHTML += `<td class="${className}">${coloredText || guessValue}</td>`;
+                resultHTML += `<td class="${className}">${coloredText || displayValue}</td>`;
             });
             resultHTML += "</tr>";
             document.getElementById("guessResult").insertAdjacentHTML('beforeend', resultHTML);
@@ -189,7 +188,7 @@
 
         // 重新开始游戏
         function startOver() {
-            let correctAnswer = characters[Math.floor(Math.random() * characters.length)];
+            correctAnswer = characters[Math.floor(Math.random() * characters.length)]; // 重新选择一个正确答案
             attempts = 0;
             document.getElementById("userInput").disabled = false;
             document.querySelector("button[onclick='submitGuess()']").disabled = false;
