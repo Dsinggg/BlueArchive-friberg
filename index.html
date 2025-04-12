@@ -90,33 +90,25 @@
         let correctAnswer = characters[Math.floor(Math.random() * characters.length)]; // 随机选取一个角色作为正确答案
         let attempts = 0;
         
-        // 自动补全提示（下拉框显示）
+        // 自动补全提示
         function showHints() {
             const input = document.getElementById("userInput").value.trim();
             
-            // 如果输入框为空，或只包含“（”或“）”，则不提供联想提示
-            if (input === "" || input === "(" || input === ")") {
-                document.getElementById("hints").innerHTML = "";
+            // 如果输入框为空，清空提示
+            if (input === "") {
+                document.getElementById("hints").innerText = "";
                 return;
             }
         
             // 根据输入框内容进行筛选
-            const filteredCharacters = characters.filter(character => character.name.toLowerCase().includes(input.toLowerCase()));
+            const hints = characters.filter(character => character.name.toLowerCase().includes(input.toLowerCase()))
+                .map(character => character.name)
+                .join(", ");
             
-            // 构建下拉框内容
-            const hintsList = document.getElementById("hintsList");
-            hintsList.innerHTML = "";
-            if (filteredCharacters.length > 0) {
-                filteredCharacters.forEach(character => {
-                    const option = document.createElement("option");
-                    option.value = character.name;
-                    hintsList.appendChild(option);
-                });
-            } else {
-                document.getElementById("hints").innerText = "未找到匹配角色";
-            }
+            // 如果有匹配角色，显示提示
+            document.getElementById("hints").innerText = hints ? "可选角色： " + hints : "";
         }
-
+        
         // 提交猜测并给出提示
         function submitGuess() {
             const userGuess = document.getElementById("userInput").value.trim();
