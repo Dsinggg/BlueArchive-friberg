@@ -34,6 +34,7 @@
         }
         #startOverBtn {
             display: none;
+            margin: 20px auto;
         }
         .hint {
             color: gray;
@@ -43,15 +44,11 @@
         .correct { background-color: lightgreen; }
         .incorrect { background-color: lightcoral; }
         .close { background-color: lightyellow; }
-        .red { color: red; }
-        .yellow { color: yellow; }
-        .blue { color: blue; }
-        .purple { color: purple; }
     </style>
 </head>
 <body>
     <h1>蔚蓝档案 · 弗一把</h1>
-    <p>请输入学生姓名，开始猜测吧！</p>
+    <p>请输入学生姓名，开始猜测吧！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者：Dsing</p>
     <input type="text" id="userInput" placeholder="输入学生姓名..." oninput="showHints()">
     <button onclick="submitGuess()">提交猜测</button>
 
@@ -84,32 +81,26 @@
             {
                 name: "星野", academy: "阿拜多斯", club: "对策委员会", age: 17, position: "前排", attack: "贯穿"
             },
-            // 你可以继续扩展角色列表
         ];
 
-        let correctAnswer = characters[Math.floor(Math.random() * characters.length)]; // 随机选取一个角色作为正确答案
+        let correctAnswer = characters[Math.floor(Math.random() * characters.length)];
         let attempts = 0;
         
-        // 自动补全提示
         function showHints() {
             const input = document.getElementById("userInput").value.trim();
             
-            // 如果输入框为空，清空提示
             if (input === "" || input === "(" || input === ")") {
                 document.getElementById("hints").innerText = "";
                 return;
             }
         
-            // 根据输入框内容进行筛选
             const hints = characters.filter(character => character.name.toLowerCase().includes(input.toLowerCase()))
                 .map(character => character.name)
                 .join(", ");
             
-            // 如果有匹配角色，显示提示
             document.getElementById("hints").innerText = hints ? "可选角色： " + hints : "";
         }
         
-        // 提交猜测并给出提示
         function submitGuess() {
             const userGuess = document.getElementById("userInput").value.trim();
             const guessCharacter = characters.find(character => character.name === userGuess);
@@ -126,29 +117,32 @@
                 let correctValue = correctAnswer[property];
                 let guessValue = guessCharacter[property];
                 let className = "incorrect";
-                let displayValue = guessValue; // 默认显示原值
+                let displayValue = guessValue;
 
                 if (property === "name") {
                     if (guessValue === correctValue) {
                         className = "correct";
                     } else if (guessValue.split('（')[0] === correctValue.split('（')[0]) {
-                        className = "close"; // 姓名接近正确
+                        className = "close";
                     }
                 } else if (property === "age") {
                     if (guessValue === correctValue) {
                         className = "correct";
                     } else if (guessValue < correctValue) {
                         className = "incorrect";
-                        displayValue = `${guessValue} ↑`; // 显示年龄小于正确答案时的“↑”
+                        displayValue = `${guessValue} ↑`;
                     } else {
                         className = "incorrect";
-                        displayValue = `${guessValue} ↓`; // 显示年龄大于正确答案时的“↓”
+                        displayValue = `${guessValue} ↓`;
                     }
                 } else if (guessValue === correctValue) {
                     className = "correct";
                 }
 
                 let coloredText = "";
+                if (property === "position") {
+                    coloredText = getPositionColor(guessCharacter.position);
+                }
                 if (property === "attack") {
                     coloredText = getAttackColor(guessCharacter.attack);
                 }
@@ -158,27 +152,31 @@
             resultHTML += "</tr>";
             document.getElementById("guessResult").insertAdjacentHTML('beforeend', resultHTML);
 
-            // 检查是否猜对
             if (userGuess === correctAnswer.name) {
                 endGame();
             }
 
-            // 清空输入框
             document.getElementById("userInput").value = '';
         }
 
-        // 攻击属性颜色
+        function getPositionColor(position) {
+            switch (position) {
+                case "突击": return '<span style="color: rgb(204, 26, 37);">突击</span>';
+                case "支援": return '<span style="color: rgb(0, 107, 255);">支援</span>';
+                default: return position;
+            }
+        }
+
         function getAttackColor(attack) {
             switch (attack) {
-                case "爆发": return '<span class="red">爆发</span>';
-                case "贯穿": return '<span class="yellow">贯穿</span>';
-                case "神秘": return '<span class="blue">神秘</span>';
-                case "振动": return '<span class="purple">振动</span>';
+                case "爆发": return '<span style="color: rgb(167, 12, 25);">爆发</span>';
+                case "贯穿": return '<span style="color: rgb(178, 109, 31);">贯穿</span>';
+                case "神秘": return '<span style="color: rgb(33, 111, 156);">神秘</span>';
+                case "振动": return '<span style="color: rgb(148, 49, 165);">振动</span>';
                 default: return attack;
             }
         }
 
-        // 游戏结束
         function endGame() {
             alert(`猜对了！你用了 ${attempts} 次尝试`);
             document.getElementById("userInput").disabled = true;
@@ -186,9 +184,8 @@
             document.getElementById("startOverBtn").style.display = "block";
         }
 
-        // 重新开始游戏
         function startOver() {
-            correctAnswer = characters[Math.floor(Math.random() * characters.length)]; // 重新选择一个正确答案
+            correctAnswer = characters[Math.floor(Math.random() * characters.length)];
             attempts = 0;
             document.getElementById("userInput").disabled = false;
             document.querySelector("button[onclick='submitGuess()']").disabled = false;
