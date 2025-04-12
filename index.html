@@ -1,7 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜数字游戏</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #guessResult {
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 5px;
+            width: 100px;
+            margin: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #startOverBtn {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
 <body>
-  <h1>恭喜！你已经是10%会建网站的人类了！</h1>
-  <img src="https://media.giphy.com/media/3o7aTskHEUdgCQAXde/giphy.gif">
+    <h1>猜数字游戏</h1>
+    <p>请输入一个数字（1~100），开始猜吧！</p>
+    
+    <input type="number" id="userInput" min="1" max="100">
+    <button onclick="checkGuess()">提交猜测</button>
+
+    <div id="guessResult"></div>
+    <button id="startOverBtn" onclick="startOver()">重新开始</button>
+
+    <script>
+        let correctNumber = Math.floor(Math.random() * 100) + 1;
+        let guessHistory = [];
+
+        function checkGuess() {
+            let userGuess = parseInt(document.getElementById('userInput').value);
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                alert("请输入1到100之间的数字！");
+                return;
+            }
+
+            // 记录用户猜测
+            guessHistory.push(userGuess);
+
+            let resultText = '';
+
+            if (userGuess < correctNumber) {
+                resultText = `${userGuess}，↑`;
+            } else if (userGuess > correctNumber) {
+                resultText = `${userGuess}，↓`;
+            } else {
+                resultText = `${userGuess}，√`;
+                endGame();
+            }
+
+            // 显示猜测历史
+            let historyHtml = '';
+            for (let i = 0; i < guessHistory.length; i++) {
+                if (i === guessHistory.length - 1) {
+                    historyHtml += `<p><strong>${guessHistory[i]}</strong>，${resultText.split('，')[1]}</p>`;
+                } else {
+                    historyHtml += `<p>${guessHistory[i]}，${guessHistory[i] < correctNumber ? '↑' : guessHistory[i] > correctNumber ? '↓' : '√'}</p>`;
+                }
+            }
+            document.getElementById('guessResult').innerHTML = historyHtml;
+
+            // 清空输入框
+            document.getElementById('userInput').value = '';
+        }
+
+        function endGame() {
+            // 禁用输入框
+            document.getElementById('userInput').disabled = true;
+            // 显示重新开始按钮
+            document.getElementById('startOverBtn').style.display = 'block';
+        }
+
+        function startOver() {
+            // 重新开始游戏
+            correctNumber = Math.floor(Math.random() * 100) + 1;
+            guessHistory = [];
+            document.getElementById('userInput').disabled = false;
+            document.getElementById('userInput').value = '';
+            document.getElementById('guessResult').innerHTML = '';
+            document.getElementById('startOverBtn').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
