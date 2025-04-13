@@ -2,89 +2,271 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>蔚蓝档案 · 弗一把</title>
     <style>
+        :root {
+            --primary-color: rgba(74, 144, 226, 0.9);
+            --secondary-color: rgba(108, 92, 231, 0.9);
+            --bg-image: url(' https://raw.githubusercontent.com/Dsinggg/BlueArchive-friberg/refs/heads/main/gamebg.webp '); /* 替换为你的背景图地址 */
+            --overlay-color: rgba(255, 255, 255, 0.85);
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            text-align: center;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px 10px;
+            background: var(--bg-image) center/cover fixed;
+            color: #2d3436;
+            min-height: 100vh;
+            position: relative;
+			text-align: center;
         }
-        input, button {
-            padding: 10px;
-            margin: 10px;
+
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.6);
+            z-index: 0;
         }
-        #guessResult {
-            margin-top: 20px;
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--overlay-color);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(8px);
+            position: relative;
+            z-index: 1;
         }
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
+
+        h1 {
+            color: var(--secondary-color);
+            margin: 0 0 15px;
+            font-size: 1.8rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
+
+        .author {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            display: block;
         }
-        th {
-            background-color: #f2f2f2;
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-direction: column;
         }
-        .colored-text {
-            font-weight: bold;
+
+        input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
         }
-        #startOverBtn {
-            display: none;
-            margin: 20px auto;
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
         }
-        .hint {
-            color: gray;
-            font-size: 12px;
-        }
-	.hint-button {
-            display: inline-block;
-            padding: 5px 10px;
-            margin: 2px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            font-size: 1rem;
         }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+            background: var(--secondary-color);
+        }
+
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        th, td {
+            padding: 12px 8px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .correct { background: #c8f5c0 !important; }
+        .incorrect { background: #ffd8d8 !important; }
+        .close { background: #fff3cd !important; }
+
+        .hint-button {
+            display: inline-block;
+            padding: 8px 15px;
+            margin: 4px;
+            background: rgba(108, 92, 231, 0.1);
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            border-radius: 20px;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
         .hint-button:hover {
-            background-color: #e0e0e0;
+            background: var(--secondary-color);
+            color: white;
             transform: scale(1.05);
         }
-        .correct { background-color: lightgreen; }
-        .incorrect { background-color: lightcoral; }
-        .close { background-color: lightyellow; }
+
+        #startOverBtn {
+            width: 100%;
+            max-width: 200px;
+            margin: 20px auto;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+                border-radius: 12px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            th, td {
+                padding: 10px 5px;
+                font-size: 0.8rem;
+            }
+
+            input, button {
+                font-size: 0.9rem;
+            }
+
+            .hint-button {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            table {
+                border-radius: 8px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            th, td {
+                padding: 8px 3px;
+                font-size: 0.75rem;
+            }
+        }
+
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .bounce {
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+		
+		table {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .hint-button {
+            background: rgba(108, 92, 231, 0.08);
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(248, 249, 250, 0.7);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+                background: rgba(255, 255, 255, 0.9);
+            }
+            
+            table {
+                background: rgba(255, 255, 255, 0.9);
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>蔚蓝档案 · 弗一把</h1>
-    <p>请输入学生姓名，开始猜测吧！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者：<a href="https://space.bilibili.com/14443582" target="_blank">Dsing</a></p>
-    <input type="text" id="userInput" placeholder="输入学生姓名..." oninput="showHints()">
-    <button onclick="submitGuess()">提交猜测</button>
+    <div class="container">
+        <h1>蔚蓝档案 · 弗一把</h1>
+        <a href="https://space.bilibili.com/14443582" target="_blank" class="author">作者：Dsing</a>
+        
+        <div class="input-group">
+            <input type="text" id="userInput" placeholder="输入学生姓名..." oninput="showHints()">
+            <div id="hints" class="hint"></div>
+            <button onclick="submitGuess()">提交猜测</button>
+        </div>
 
-    <div id="hints" class="hint"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>学院</th>
+                    <th>社团</th>
+                    <th>年龄</th>
+                    <th>定位</th>
+                    <th>属性</th>
+                </tr>
+            </thead>
+            <tbody id="guessResult"></tbody>
+        </table>
 
-    <table>
-        <thead>
-            <tr>
-                <th>姓名</th>
-                <th>学院</th>
-                <th>社团</th>
-                <th>年龄</th>
-                <th>战略定位</th>
-                <th>攻击属性</th>
-            </tr>
-        </thead>
-        <tbody id="guessResult"></tbody>
-    </table>
-
-    <button id="startOverBtn" onclick="startOver()">重新开始</button>
+        <button id="startOverBtn" onclick="startOver()">重新开始</button>
+    </div>
 
     <script>
-        const characters = [
+        
+		const characters = [
         {name: "爱露", academy: "歌赫娜", club: "便利屋68", age: 16, position: "突击", attack: "爆发"},
         {name: "艾米", academy: "千禧年", club: "超自然现象调查部", age: 15, position: "突击", attack: "爆发"},
         {name: "晴奈", academy: "歌赫娜", club: "美食研究会", age: 17, position: "突击", attack: "神秘"},
@@ -328,7 +510,7 @@
                 hintsContainer.appendChild(button);
             });
         }
-        
+		
         function submitGuess() {
             const userGuess = document.getElementById("userInput").value.trim();
             const guessCharacter = characters.find(character => character.name === userGuess);
@@ -395,9 +577,11 @@
             }
 
             document.getElementById("userInput").value = '';
+            document.querySelector('.container').classList.add('bounce');
+            setTimeout(() => document.querySelector('.container').classList.remove('bounce'), 500);
         }
 
-        function getPositionColor(position) {
+		function getPositionColor(position) {
             switch (position) {
                 case "突击": return '<span style="color: rgb(204, 26, 37);">突击</span>';
                 case "支援": return '<span style="color: rgb(0, 107, 255);">支援</span>';
@@ -421,7 +605,7 @@
             document.querySelector("button[onclick='submitGuess()']").disabled = true;
             document.getElementById("startOverBtn").style.display = "block";
         }
-
+		
         function startOver() {
             correctAnswer = characters[Math.floor(Math.random() * characters.length)];
             attempts = 0;
